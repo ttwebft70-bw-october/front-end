@@ -1,4 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import * as yup from "yup";
+
+const registerSchema = yup.object().shape({
+	name: yup.string().required("Name required"),
+	business: yup.string().required("Business name required"),
+	email: yup.string().email("Invalid email address").required("Email required"),
+	password: yup
+		.string()
+		.min(6, `Password must be 6 characters or longer`)
+		.required("Password required"),
+	tos: yup.boolean().oneOf([true], "TOS acknowledgement required"),
+});
 
 function Register() {
 	const [form, setForm] = useState({
@@ -8,6 +20,13 @@ function Register() {
 		password: "",
 		tos: false,
 	});
+	const [buttonOn, setButtonOn] = useState(false);
+
+	useEffect(() => {
+		registerSchema.isValid(form).then((validity) => {
+			setButtonOn(validity);
+		});
+	}, [form]);
 
 	const handleChange = (e) => {
 		const { name, value, type, checked } = e.target;
@@ -64,14 +83,14 @@ function Register() {
 			<label>
 				I have read and agree to the Terms of Service
 				<input
-					name="name"
+					name="tos"
 					type="checkbox"
 					onChange={handleChange}
 					value={form.tos}
 					checked={form.tos}
 				/>
 			</label>
-			<button>Submit</button>
+			<button disabled={!buttonOn}>Submit</button>
 		</form>
 	);
 }

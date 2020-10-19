@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import * as yup from "yup";
+
+const loginSchema = yup.object().shape({
+	email: yup.string().email("Invalid email address").required("Email required"),
+	password: yup
+		.string()
+		.min(6, `Password must be 6 characters or longer`)
+		.required("Password required"),
+});
 
 function Login() {
 	const [form, setForm] = useState({
 		email: "",
 		password: "",
 	});
+	const [buttonOn, setButtonOn] = useState(false);
+
+	useEffect(() => {
+		loginSchema.isValid(form).then((validity) => {
+			setButtonOn(validity);
+		});
+	}, [form]);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -36,7 +52,7 @@ function Login() {
 					value={form.password}
 				/>
 			</label>
-			<button>Login</button>
+			<button disabled={!buttonOn}>Login</button>
 		</form>
 	);
 }
