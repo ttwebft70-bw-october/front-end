@@ -36,6 +36,7 @@ function Profile() {
 				{fakeProfile.first_name} {fakeProfile.last_name} from{" "}
 				{fakeProfile.business}
 			</h1>
+			<h2>For Sale</h2>
 			<ProfileListings listings={fakeListings} />
 		</div>
 	);

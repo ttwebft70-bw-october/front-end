@@ -79,3 +79,28 @@ nav a {
 	display: flex;
 	flex-direction: column;
 }
+
+/*	Styles for Profile component */
+.profile {
+	display: flex;
+	flex-direction: column;
+}
+
+/*	Styles for ProfileListings component (child of Profile) */
+.profile-listings {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+/* Styles for ItemLising component (child of ProfileListings) */
+.listing {
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+}
+
+.listing-container-top {
+	display: flex;
+	justify-content: space-between;
+}
