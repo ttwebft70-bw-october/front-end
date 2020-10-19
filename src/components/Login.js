@@ -35,11 +35,11 @@ function Login() {
 
 	return (
 		<div className="login">
-			<div className="login-form-container">
+			<div className="form-container">
 				<h1>Login</h1>
 				<form>
 					<label>
-						Email
+						<span>Email</span>
 						<input
 							name="email"
 							type="text"
@@ -48,7 +48,7 @@ function Login() {
 						/>
 					</label>
 					<label>
-						Password
+						<span>Password</span>
 						<input
 							name="password"
 							type="password"
@@ -56,13 +56,15 @@ function Login() {
 							value={form.password}
 						/>
 					</label>
-					<button disabled={!buttonOn}>Login</button>
+					<div className="login-form-button-container">
+						<Link to={"/"}>
+							<button disabled={!buttonOn}>Login</button>
+						</Link>
+						<Link to={"/register"}>
+							<button>Sign up</button>
+						</Link>
+					</div>
 				</form>
-			</div>
-			<div className="login-register">
-				<span>
-					or <Link to={"/register"}>Sign up</Link>
-				</span>
 			</div>
 		</div>
 	);

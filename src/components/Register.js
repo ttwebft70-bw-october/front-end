@@ -44,55 +44,58 @@ function Register() {
 
 	return (
 		<div className="register">
-			<form onSubmit={handleSubmit}>
-				<label>
-					Name
-					<input
-						name="name"
-						type="text"
-						onChange={handleChange}
-						value={form.name}
-					/>
-				</label>
-				<label>
-					Business Name
-					<input
-						name="business"
-						type="text"
-						onChange={handleChange}
-						value={form.business}
-					/>
-				</label>
-				<label>
-					Email
-					<input
-						name="email"
-						type="text"
-						onChange={handleChange}
-						value={form.email}
-					/>
-				</label>
-				<label>
-					Password
-					<input
-						name="password"
-						type="password"
-						onChange={handleChange}
-						value={form.password}
-					/>
-				</label>
-				<label>
-					I have read and agree to the Terms of Service
-					<input
-						name="tos"
-						type="checkbox"
-						onChange={handleChange}
-						value={form.tos}
-						checked={form.tos}
-					/>
-				</label>
-				<button disabled={!buttonOn}>Submit</button>
-			</form>
+			<div className="form-container">
+				<h1>Register</h1>
+				<form onSubmit={handleSubmit}>
+					<label>
+						<span>Name</span>
+						<input
+							name="name"
+							type="text"
+							onChange={handleChange}
+							value={form.name}
+						/>
+					</label>
+					<label>
+						<span>Business</span>
+						<input
+							name="business"
+							type="text"
+							onChange={handleChange}
+							value={form.business}
+						/>
+					</label>
+					<label>
+						<span>Email</span>
+						<input
+							name="email"
+							type="text"
+							onChange={handleChange}
+							value={form.email}
+						/>
+					</label>
+					<label>
+						<span>Password</span>
+						<input
+							name="password"
+							type="password"
+							onChange={handleChange}
+							value={form.password}
+						/>
+					</label>
+					<label className="register-tos-container">
+						I have read and agree to the Terms of Service
+						<input
+							name="tos"
+							type="checkbox"
+							onChange={handleChange}
+							value={form.tos}
+							checked={form.tos}
+						/>
+					</label>
+					<button disabled={!buttonOn}>Submit</button>
+				</form>
+			</div>
 		</div>
 	);
 }

@@ -18,6 +18,7 @@ body {
 /*	Styles every child component of App (except Nav), assuming they have been wrapped in a div */
 .App > div {
 	width: 80%;
+	margin: 2rem 0;
 }
 
 /* Styles for the Nav component, which should be loaded at the top of every page */
@@ -52,44 +53,85 @@ nav {
 }
 
 .nav-container a:hover {
-	color: #4dd0e1;
+	color: #62efff;
 }
 
-/*	Styles for the Login component */
-.login {
+/*	Styles for the Login & Register components */
+.form-container {
+	font-size: 1rem;
 	display: flex;
 	justify-content: center;
 }
 
-.login-form-container {
+.form-container h1 {
+	font-size: 1.8rem;
+	margin-bottom: 1rem;
+	text-align: center;
+}
+
+.form-container {
 	width: 40%;
 	display: flex;
 	flex-direction: column;
 }
 
-.login-form-container form {
+.form-container form {
 	display: flex;
 	flex-direction: column;
 }
 
-.login-register {
+.form-container label {
+	margin: 0.5rem;
 	display: flex;
-	align-items: center;
+	justify-content: space-between;
 }
 
-.login-register a {
-	color: inherit;
+.form-container label span {
+	width: 40%;
 }
 
-/*	Styles for the Register component */
+.form-container label input {
+	width: 100%;
+	height: 1rem;
+}
+
+form button {
+	font-size: 1.2rem;
+	width: 8rem;
+	height: 2.5rem;
+	text-align: center;
+	background-color: #008ba3;
+	color: white;
+	border: 1px solid white;
+	border-radius: 10px;
+	margin: 0 1rem;
+}
+
+form button:disabled {
+	background-color: #263238;
+	color: #4f5b62;
+}
+
+/*	Styling specific to the Login component */
+.login {
+	display: flex;
+	justify-content: center;
+}
+
+.login-form-button-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 1rem;
+}
+
+/*	Styling specific to the Register component */
 .register {
 	display: flex;
 	justify-content: center;
 }
 
-.register form {
-	display: flex;
-	flex-direction: column;
+.register .form-container .register-tos-container input {
+	width: 1rem;
 }
 
 /*	Styles for the NewItem component */
