@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 
 const loginSchema = yup.object().shape({
@@ -33,27 +34,39 @@ function Login() {
 	};
 
 	return (
-		<form>
-			<label>
-				Email
-				<input
-					name="email"
-					type="text"
-					onChange={handleChange}
-					value={form.email}
-				/>
-			</label>
-			<label>
-				Password
-				<input
-					name="password"
-					type="password"
-					onChange={handleChange}
-					value={form.password}
-				/>
-			</label>
-			<button disabled={!buttonOn}>Login</button>
-		</form>
+		<div className="login">
+			<div className="form-container">
+				<h1>Login</h1>
+				<form onSubmit={handleSubmit}>
+					<label>
+						<span>Email</span>
+						<input
+							name="email"
+							type="text"
+							onChange={handleChange}
+							value={form.email}
+						/>
+					</label>
+					<label>
+						<span>Password</span>
+						<input
+							name="password"
+							type="password"
+							onChange={handleChange}
+							value={form.password}
+						/>
+					</label>
+					<div className="button-container">
+						<Link to={"/"}>
+							<button disabled={!buttonOn}>Login</button>
+						</Link>
+						<Link to={"/register"}>
+							<button>Sign up</button>
+						</Link>
+					</div>
+				</form>
+			</div>
+		</div>
 	);
 }
 
