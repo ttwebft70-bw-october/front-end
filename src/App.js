@@ -3,10 +3,12 @@ import { Route, Switch } from "react-router-dom";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import NewItem from './components/NewItem'
+import Nav from './components/Nav'
 
 function App() {
 	return (
 		<div className="App">
+			<Nav/>
 			<Switch>
 				<Route exact path="/">
 					<Login />
