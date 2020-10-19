@@ -31,3 +31,29 @@ nav a {
 	color: inherit;
 	text-decoration: none;
 }
+
+/*	Styles for the Login component */
+.login {
+	display: flex;
+	justify-content: center;
+}
+
+.login-form-container {
+	width: 40%;
+	display: flex;
+	flex-direction: column;
+}
+
+.login-form-container form {
+	display: flex;
+	flex-direction: column;
+}
+
+.login-register {
+	display: flex;
+	align-items: center;
+}
+
+.login-register a {
+	color: inherit;
+}

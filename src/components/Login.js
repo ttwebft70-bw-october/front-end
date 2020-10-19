@@ -35,29 +35,35 @@ function Login() {
 
 	return (
 		<div className="login">
-			<form className="login-form">
-				<label>
-					Email
-					<input
-						name="email"
-						type="text"
-						onChange={handleChange}
-						value={form.email}
-					/>
-				</label>
-				<label>
-					Password
-					<input
-						name="password"
-						type="password"
-						onChange={handleChange}
-						value={form.password}
-					/>
-				</label>
-				<button disabled={!buttonOn}>Login</button>
-			</form>
-			<div className="login-separator">or</div>
-			<div className="login-register"><Link to={"/register"}>Sign up</Link></div>
+			<div className="login-form-container">
+				<h1>Login</h1>
+				<form>
+					<label>
+						Email
+						<input
+							name="email"
+							type="text"
+							onChange={handleChange}
+							value={form.email}
+						/>
+					</label>
+					<label>
+						Password
+						<input
+							name="password"
+							type="password"
+							onChange={handleChange}
+							value={form.password}
+						/>
+					</label>
+					<button disabled={!buttonOn}>Login</button>
+				</form>
+			</div>
+			<div className="login-register">
+				<span>
+					or <Link to={"/register"}>Sign up</Link>
+				</span>
+			</div>
 		</div>
 	);
 }
