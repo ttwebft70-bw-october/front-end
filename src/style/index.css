@@ -68,3 +68,14 @@ nav a {
 	display: flex;
 	flex-direction: column;
 }
+
+/*	Styles for the NewItem component */
+.new-item {
+	display: flex;
+	justify-content: center;
+}
+
+.new-item form {
+	display: flex;
+	flex-direction: column;
+}

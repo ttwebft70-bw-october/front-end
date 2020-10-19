@@ -6,7 +6,7 @@ const itemSchema = yup.object().shape({
 	description: yup.string().required("Description required"),
 	price: yup.string().required("Price required"),
 	quantity: yup.number().min(0).required("Quantity required"),
-	location: yup.string().required("Location required")
+	location: yup.string().required("Location required"),
 });
 
 function NewItem() {
@@ -14,8 +14,8 @@ function NewItem() {
 		item: "",
 		description: "",
 		price: "",
-		quantity: "", 
-		location: ""
+		quantity: "",
+		location: "",
 	});
 	const [buttonOn, setButtonOn] = useState(false);
 
@@ -36,54 +36,56 @@ function NewItem() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<label>
-				Name
-				<input
-					name="item"
-					type="text"
-					onChange={handleChange}
-					value={form.item}
-				/>
-			</label>
-			<label>
-				Description
-				<input
-					name="description"
-					type="text"
-					onChange={handleChange}
-					value={form.description}
-				/>
-			</label>
-			<label>
-				Price
-				<input
-					name="price"
-					type="text"
-					onChange={handleChange}
-					value={form.price}
-				/>
-			</label>
-			<label>
-				Quantity
-				<input
-					name="quantity"
-					type="number"
-					onChange={handleChange}
-					value={form.quantity}
-				/>
-			</label>
-			<label>
-				Location
-				<input
-					name="location"
-					type="text"
-					onChange={handleChange}
-					value={form.location}
-				/>
-			</label>
-			<button disabled={!buttonOn}>Submit</button>
-		</form>
+		<div className="new-item">
+			<form onSubmit={handleSubmit}>
+				<label>
+					Name
+					<input
+						name="item"
+						type="text"
+						onChange={handleChange}
+						value={form.item}
+					/>
+				</label>
+				<label>
+					Description
+					<input
+						name="description"
+						type="text"
+						onChange={handleChange}
+						value={form.description}
+					/>
+				</label>
+				<label>
+					Price
+					<input
+						name="price"
+						type="text"
+						onChange={handleChange}
+						value={form.price}
+					/>
+				</label>
+				<label>
+					Quantity
+					<input
+						name="quantity"
+						type="number"
+						onChange={handleChange}
+						value={form.quantity}
+					/>
+				</label>
+				<label>
+					Location
+					<input
+						name="location"
+						type="text"
+						onChange={handleChange}
+						value={form.location}
+					/>
+				</label>
+				<button disabled={!buttonOn}>Submit</button>
+			</form>
+		</div>
 	);
 }
 
