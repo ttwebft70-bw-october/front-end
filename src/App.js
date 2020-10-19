@@ -4,6 +4,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import NewItem from './components/NewItem'
 
 function App() {
 	return (
@@ -14,6 +15,9 @@ function App() {
 				</Route>
 				<Route path="/register">
 					<Register />
+				</Route>
+				<Route path="/new-item">
+					<NewItem />
 				</Route>
 			</Switch>
 		</div>
