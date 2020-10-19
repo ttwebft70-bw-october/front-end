@@ -93,7 +93,9 @@ function Register() {
 							checked={form.tos}
 						/>
 					</label>
-					<button disabled={!buttonOn}>Submit</button>
+					<div className="button-container">
+						<button disabled={!buttonOn}>Submit</button>
+					</div>
 				</form>
 			</div>
 		</div>

@@ -56,7 +56,7 @@ nav {
 	color: #62efff;
 }
 
-/*	Styles for the Login & Register components */
+/*	Styles for form components (Login, Register, NewItem) */
 .form-container {
 	font-size: 1rem;
 	display: flex;
@@ -112,16 +112,16 @@ form button:disabled {
 	color: #4f5b62;
 }
 
+.button-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 1rem;
+}
+
 /*	Styling specific to the Login component */
 .login {
 	display: flex;
 	justify-content: center;
-}
-
-.login-form-button-container {
-	display: flex;
-	justify-content: center;
-	margin-top: 1rem;
 }
 
 /*	Styling specific to the Register component */
@@ -134,15 +134,10 @@ form button:disabled {
 	width: 1rem;
 }
 
-/*	Styles for the NewItem component */
+/*	Styles specific to the NewItem component */
 .new-item {
 	display: flex;
 	justify-content: center;
-}
-
-.new-item form {
-	display: flex;
-	flex-direction: column;
 }
 
 /*	Styles for Profile component */

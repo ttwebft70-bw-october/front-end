@@ -56,7 +56,7 @@ function Login() {
 							value={form.password}
 						/>
 					</label>
-					<div className="login-form-button-container">
+					<div className="button-container">
 						<Link to={"/"}>
 							<button disabled={!buttonOn}>Login</button>
 						</Link>
