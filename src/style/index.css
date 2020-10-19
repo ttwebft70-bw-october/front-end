@@ -57,3 +57,14 @@ nav a {
 .login-register a {
 	color: inherit;
 }
+
+/*	Styles for the Register component */
+.register {
+	display: flex;
+	justify-content: center;
+}
+
+.register form {
+	display: flex;
+	flex-direction: column;
+}
