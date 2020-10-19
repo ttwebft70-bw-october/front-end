@@ -6,6 +6,7 @@ function Nav() {
 		<nav>
 			<div className="nav-container">
 				<Link to={"/new-item"}>New Item</Link>
+				<Link to={`/profile`}>Your Profile</Link>
 				<Link to={"/"}>Login</Link>
 			</div>
 		</nav>
