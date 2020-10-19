@@ -1,13 +1,15 @@
-import React from "react"
-import {Link} from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Nav() {
-	return(
+	return (
 		<nav>
-			<Link to={'/new-item'}>New Item</Link>
-			<Link to={'/'}>Login</Link>
-		</nav> 
-	)
+			<div className="nav-container">
+				<Link to={"/new-item"}>New Item</Link>
+				<Link to={"/"}>Login</Link>
+			</div>
+		</nav>
+	);
 }
 
 export default Nav;
