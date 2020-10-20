@@ -3,9 +3,10 @@ import * as yup from "yup";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 const registerSchema = yup.object().shape({
-	name: yup.string().required("Name required"),
+	username: yup.string().required("Username required"),
 	business: yup.string().required("Business name required"),
 	email: yup.string().email("Invalid email address").required("Email required"),
 	password: yup
@@ -16,8 +17,9 @@ const registerSchema = yup.object().shape({
 });
 
 function Register() {
+	const history = useHistory();
 	const [form, setForm] = useState({
-		name: "",
+		username: "",
 		business: "",
 		email: "",
 		password: "",
@@ -42,19 +44,36 @@ function Register() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		const creds = {
+			username: form.username,
+			password: form.password,
+		};
 		//	However you want to handle new user registration
+		axios
+			.post(
+				"https://marketplace-backend-webft-70.herokuapp.com/api/auth/register",
+				creds
+			)
+			.then((res) => {
+				window.localStorage.setItem("token", res.data.token);
+				console.log("success!");
+				history.push("/Dashboard");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	return (
 		<Container>
 			<h1>Register</h1>
 			<Form onSubmit={handleSubmit}>
-				<Form.Group controlId="registerName">
-					<Form.Label>Name</Form.Label>
+				<Form.Group controlId="registerUsername">
+					<Form.Label>Username</Form.Label>
 					<Form.Control
-						name="name"
+						name="username"
 						type="text"
-						placeholder="Enter your name"
+						placeholder="Enter your username"
 						onChange={handleChange}
 					></Form.Control>
 				</Form.Group>

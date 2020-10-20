@@ -1,8 +1,9 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import NewItem from "./components/NewItem";
+import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -19,18 +20,23 @@ function App() {
 					<Nav.Link href="/">Login</Nav.Link>
 				</Navbar>
 			</Container>
-			<Switch>
-				<Route exact path="/">
-					<Login />
-				</Route>
-				<Route path="/register">
-					<Register />
-				</Route>
-				<Route path="/profile" component={Profile} />
-				<Route path="/new-item">
-					<NewItem />
-				</Route>
-			</Switch>
+			<Router>
+				<Switch>
+					<Route exact path="/">
+						<Login />
+					</Route>
+					<Route path="/register">
+						<Register />
+					</Route>
+					<Route path="/dashboard">
+						<Dashboard />
+					</Route>
+					<Route path="/profile" component={Profile} />
+					<Route path="/new-item">
+						<NewItem />
+					</Route>
+				</Switch>
+			</Router>
 		</div>
 	);
 }
