@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
-
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
 const registerSchema = yup.object().shape({
-	name: yup.string().required("Name required"),
+	username: yup.string().required("Username required"),
 	business: yup.string().required("Business name required"),
 	email: yup.string().email("Invalid email address").required("Email required"),
 	password: yup
@@ -13,8 +14,9 @@ const registerSchema = yup.object().shape({
 });
 
 function Register() {
+	const history = useHistory()
 	const [form, setForm] = useState({
-		name: "",
+		username: "",
 		business: "",
 		email: "",
 		password: "",
@@ -39,7 +41,21 @@ function Register() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		const creds = {
+			username: form.username,
+			password: form.password,
+		}
 		//	However you want to handle new user registration
+		axios 
+        .post('https://marketplace-backend-webft-70.herokuapp.com/api/auth/register',creds)
+        .then((res)=>{
+            window.localStorage.setItem('token',res.data.token)
+            console.log('success!')
+            history.push('/Dashboard')
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
 	};
 
 	return (
@@ -48,12 +64,12 @@ function Register() {
 				<h1>Register</h1>
 				<form onSubmit={handleSubmit}>
 					<label>
-						<span>Name</span>
+						<span>Username</span>
 						<input
-							name="name"
+							name="username"
 							type="text"
 							onChange={handleChange}
-							value={form.name}
+							value={form.username}
 						/>
 					</label>
 					<label>
