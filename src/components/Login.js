@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const loginSchema = yup.object().shape({
 	email: yup.string().email("Invalid email address").required("Email required"),
@@ -34,39 +39,42 @@ function Login() {
 	};
 
 	return (
-		<div className="login">
-			<div className="form-container">
-				<h1>Login</h1>
-				<form onSubmit={handleSubmit}>
-					<label>
-						<span>Email</span>
-						<input
-							name="email"
-							type="text"
-							onChange={handleChange}
-							value={form.email}
-						/>
-					</label>
-					<label>
-						<span>Password</span>
-						<input
-							name="password"
-							type="password"
-							onChange={handleChange}
-							value={form.password}
-						/>
-					</label>
-					<div className="button-container">
-						<Link to={"/"}>
-							<button disabled={!buttonOn}>Login</button>
-						</Link>
-						<Link to={"/register"}>
-							<button>Sign up</button>
-						</Link>
-					</div>
-				</form>
-			</div>
-		</div>
+		<Container>
+			<h1>Login</h1>
+			<Row className="align-items-center">
+				<Col>
+					<Form onSubmit={handleSubmit}>
+						<Form.Group controlId="loginEmail">
+							<Form.Label>Email address</Form.Label>
+							<Form.Control
+								name="email"
+								type="email"
+								placeholder="Enter email address"
+								onChange={handleChange}
+							></Form.Control>
+						</Form.Group>
+						<Form.Group controlId="loginPassword">
+							<Form.Label>Password</Form.Label>
+							<Form.Control
+								name="password"
+								type="password"
+								placeholder="Enter password"
+								onChange={handleChange}
+							></Form.Control>
+						</Form.Group>
+						<Button variant="primary" type="submit" disabled={!buttonOn}>
+							Login
+						</Button>
+					</Form>
+				</Col>
+				<Col md="auto">
+					<span>or </span>
+					<Link to={"/register"}>
+						<Button>Register</Button>
+					</Link>
+				</Col>
+			</Row>
+		</Container>
 	);
 }
 

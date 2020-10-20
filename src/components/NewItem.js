@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const itemSchema = yup.object().shape({
 	item: yup.string().required("Name required"),
@@ -36,60 +39,59 @@ function NewItem() {
 	};
 
 	return (
-		<div className="new-item">
-			<div className="form-container">
-				<form onSubmit={handleSubmit}>
-					<label>
-						<span>Name</span>
-						<input
-							name="item"
-							type="text"
-							onChange={handleChange}
-							value={form.item}
-						/>
-					</label>
-					<label>
-						<span>Description</span>
-						<input
-							name="description"
-							type="text"
-							onChange={handleChange}
-							value={form.description}
-						/>
-					</label>
-					<label>
-						<span>Price</span>
-						<input
-							name="price"
-							type="text"
-							onChange={handleChange}
-							value={form.price}
-						/>
-					</label>
-					<label>
-						<span>Quantity</span>
-						<input
-							name="quantity"
-							type="number"
-							onChange={handleChange}
-							value={form.quantity}
-						/>
-					</label>
-					<label>
-						<span>Location</span>
-						<input
-							name="location"
-							type="text"
-							onChange={handleChange}
-							value={form.location}
-						/>
-					</label>
-					<div className="button-container">
-						<button disabled={!buttonOn}>Submit</button>
-					</div>
-				</form>
-			</div>
-		</div>
+		<Container>
+			<h1>Add new item listing</h1>
+			<Form onSubmit={handleSubmit}>
+				<Form.Group controlId="itemName">
+					<Form.Label>Name</Form.Label>
+					<Form.Control
+						name="item"
+						type="text"
+						placeholder="Enter the name of your item"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group controlId="itemDescription">
+					<Form.Label>Description</Form.Label>
+					<Form.Control
+						name="description"
+						type="text"
+						placeholder="Enter a description of your item"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group controlId="itemPrice">
+					<Form.Label>Price</Form.Label>
+					<Form.Control
+						name="price"
+						type="text"
+						placeholder="Enter the price of your item"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group controlId="itemQuantity">
+					<Form.Label>Quantity</Form.Label>
+					<Form.Control
+						name="price"
+						type="number"
+						placeholder="Enter the quantity available for sale"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group controlId="itemLocation">
+					<Form.Label>Location</Form.Label>
+					<Form.Control
+						name="location"
+						type="text"
+						placeholder="Enter the location of your item"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Button variant="primary" type="submit" disabled={!buttonOn}>
+					Submit
+				</Button>
+			</Form>
+		</Container>
 	);
 }
 

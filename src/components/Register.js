@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const registerSchema = yup.object().shape({
 	name: yup.string().required("Name required"),
@@ -43,62 +46,59 @@ function Register() {
 	};
 
 	return (
-		<div className="register">
-			<div className="form-container">
-				<h1>Register</h1>
-				<form onSubmit={handleSubmit}>
-					<label>
-						<span>Name</span>
-						<input
-							name="name"
-							type="text"
-							onChange={handleChange}
-							value={form.name}
-						/>
-					</label>
-					<label>
-						<span>Business</span>
-						<input
-							name="business"
-							type="text"
-							onChange={handleChange}
-							value={form.business}
-						/>
-					</label>
-					<label>
-						<span>Email</span>
-						<input
-							name="email"
-							type="text"
-							onChange={handleChange}
-							value={form.email}
-						/>
-					</label>
-					<label>
-						<span>Password</span>
-						<input
-							name="password"
-							type="password"
-							onChange={handleChange}
-							value={form.password}
-						/>
-					</label>
-					<label className="register-tos-container">
-						I have read and agree to the Terms of Service
-						<input
-							name="tos"
-							type="checkbox"
-							onChange={handleChange}
-							value={form.tos}
-							checked={form.tos}
-						/>
-					</label>
-					<div className="button-container">
-						<button disabled={!buttonOn}>Submit</button>
-					</div>
-				</form>
-			</div>
-		</div>
+		<Container>
+			<h1>Register</h1>
+			<Form onSubmit={handleSubmit}>
+				<Form.Group controlId="registerName">
+					<Form.Label>Name</Form.Label>
+					<Form.Control
+						name="name"
+						type="text"
+						placeholder="Enter your name"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group controlId="registerBusiness">
+					<Form.Label>Business</Form.Label>
+					<Form.Control
+						name="business"
+						type="text"
+						placeholder="Enter business name"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group controlId="registerEmail">
+					<Form.Label>Email address</Form.Label>
+					<Form.Control
+						name="email"
+						type="email"
+						placeholder="Enter email address"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group controlId="registerPassword">
+					<Form.Label>Password</Form.Label>
+					<Form.Control
+						name="password"
+						type="password"
+						placeholder="Enter password"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group controlId="registerTos">
+					<Form.Check
+						name="tos"
+						type="checkbox"
+						onChange={handleChange}
+						checked={form.tos}
+						label="I have read and agree to the Terms of Service"
+					></Form.Check>
+				</Form.Group>
+				<Button variant="primary" type="submit" disabled={!buttonOn}>
+					Register
+				</Button>
+			</Form>
+		</Container>
 	);
 }
 
