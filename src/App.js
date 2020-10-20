@@ -1,17 +1,23 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-import logo from "./logo.svg";
+import { BrowserRouter as Router, Route, Switch, Link  } from 'react-router-dom';
 import "./App.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import NewItem from './components/NewItem'
+import Dashboard from "./components/Dashboard";
 
 function App() {
+	
 	return (
 		<div className="App">
+			<Router>
 			<Switch>
 				<Route exact path="/">
 					<Login />
+					Don't have an account?<Link to='register'>  Register </Link>
+				</Route>
+				<Route path="/dashboard">
+					<Dashboard />
 				</Route>
 				<Route path="/register">
 					<Register />
@@ -20,6 +26,7 @@ function App() {
 					<NewItem />
 				</Route>
 			</Switch>
+			</Router>
 		</div>
 	);
 }
