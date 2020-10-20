@@ -59,55 +59,62 @@ function Register() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<label>
-				Username
-				<input
-					name="username"
-					type="text"
-					onChange={handleChange}
-					value={form.username}
-				/>
-			</label>
-			<label>
-				Business Name
-				<input
-					name="business"
-					type="text"
-					onChange={handleChange}
-					value={form.business}
-				/>
-			</label>
-			<label>
-				Email
-				<input
-					name="email"
-					type="text"
-					onChange={handleChange}
-					value={form.email}
-				/>
-			</label>
-			<label>
-				Password
-				<input
-					name="password"
-					type="password"
-					onChange={handleChange}
-					value={form.password}
-				/>
-			</label>
-			<label>
-				I have read and agree to the Terms of Service
-				<input
-					name="tos"
-					type="checkbox"
-					onChange={handleChange}
-					value={form.tos}
-					checked={form.tos}
-				/>
-			</label>
-			<button disabled={!buttonOn}>Submit</button>
-		</form>
+		<div className="register">
+			<div className="form-container">
+				<h1>Register</h1>
+				<form onSubmit={handleSubmit}>
+					<label>
+						<span>Username</span>
+						<input
+							name="username"
+							type="text"
+							onChange={handleChange}
+							value={form.username}
+						/>
+					</label>
+					<label>
+						<span>Business</span>
+						<input
+							name="business"
+							type="text"
+							onChange={handleChange}
+							value={form.business}
+						/>
+					</label>
+					<label>
+						<span>Email</span>
+						<input
+							name="email"
+							type="text"
+							onChange={handleChange}
+							value={form.email}
+						/>
+					</label>
+					<label>
+						<span>Password</span>
+						<input
+							name="password"
+							type="password"
+							onChange={handleChange}
+							value={form.password}
+						/>
+					</label>
+					<label className="register-tos-container">
+						I have read and agree to the Terms of Service
+						<input
+							name="tos"
+							type="checkbox"
+							onChange={handleChange}
+							value={form.tos}
+							checked={form.tos}
+						/>
+					</label>
+					<div className="button-container">
+						<button disabled={!buttonOn}>Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	);
 }
 
