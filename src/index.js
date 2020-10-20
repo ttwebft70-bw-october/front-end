@@ -1,15 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+// import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import {StateProvider} from './components/StateProvider';
+import reducer, { initialState } from "./components/Reducer";
+
 
 ReactDOM.render(
 	<React.StrictMode>
-		<Router>
+		<StateProvider initialState={initialState} reducer={reducer}>
 			<App />
-		</Router>
+		</StateProvider>
 	</React.StrictMode>,
 	document.getElementById("root")
 );
