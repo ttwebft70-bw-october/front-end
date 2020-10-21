@@ -117,10 +117,6 @@ function DashForm(props) {
 		});
 	};
 
-	useEffect(() => {
-		console.log(form);
-	}, [form]);
-
 	return (
 		<Form onSubmit={handleSubmit}>
 			<Form.Group controlId="dashProductCategory">

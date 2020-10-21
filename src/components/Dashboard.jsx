@@ -34,8 +34,23 @@ export default function Dashboard(props) {
 		headers: { key: process.env.REACT_APP_SAUTI_API_KEY },
 	});
 
+	useEffect(() => {
+		if (!sauti.initalized) {
+			sautiAPI
+				.get("currency=USD")
+				.then((res) => {
+					setSauti({
+						...sauti,
+						data: res.data.records,
+					});
+				})
+				.catch((err) => {
+					console.error(err);
+				});
+		}
+	}, []);
+
 	const submit = (filters) => {
-		console.log(filters);
 		let url = ``;
 		if (filters.product) {
 			url = url.concat(`p=${filters.product}&`);
@@ -54,11 +69,9 @@ export default function Dashboard(props) {
 			url = url.concat(`source=${filters.source}&`);
 		}
 		url = url.concat(`currency=${filters.currency}`);
-		console.log(url);
 		sautiAPI
 			.get(url)
 			.then((res) => {
-				console.log(res.data);
 				setSauti({
 					...sauti,
 					data: res.data.records,
@@ -69,31 +82,10 @@ export default function Dashboard(props) {
 			});
 	};
 
-	useEffect(() => {
-		if (!sauti.initalized) {
-			sautiAPI
-				.get("currency=USD")
-				.then((res) => {
-					console.log(res.data);
-					setSauti({
-						...sauti,
-						data: res.data.records,
-					});
-				})
-				.catch((err) => {
-					console.error(err);
-				});
-		}
-	}, []);
-
-	useEffect(() => {
-		console.log(sauti);
-	}, [sauti]);
-
 	return (
 		<Container>
 			<DashForm list={sauti.list} submit={submit} />
-			<DashTable data={sauti.data} />
+			<DashTable data={sauti.data} countries={sauti.list.countries} />
 		</Container>
 	);
 }

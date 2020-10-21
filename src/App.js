@@ -17,7 +17,7 @@ function App() {
 					<Navbar.Brand href="/">African Marketplace</Navbar.Brand>
 					<Nav.Link href="/new-item">New Item</Nav.Link>
 					<Nav.Link href="/profile">Profile</Nav.Link>
-					<Nav.Link href="/">Login</Nav.Link>
+					<Nav.Link href="/login">Login</Nav.Link>
 				</Navbar>
 			</Container>
 			<Router>

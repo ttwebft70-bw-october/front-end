@@ -2,7 +2,15 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 
 function DashTable(props) {
-	const { data } = props;
+	const { data, countries } = props;
+
+	const roundPrice = (price) => {
+		if (Number.isInteger(price)) {
+			return price;
+		} else {
+			return price.toFixed(2);
+		}
+	};
 
 	return (
 		<Table striped border hover>
@@ -18,17 +26,17 @@ function DashTable(props) {
 			<tbody>
 				{data.map((record) => (
 					<tr>
-						<td>{record.date}</td>
-						<td>{record.country}</td>
+						<td>{record.date.slice(0, 10)}</td>
+						<td>{countries.find((c) => c.code === record.country).name}</td>
 						<td>{record.market}</td>
 						<td>{record.product}</td>
 						<td>
-							{record.retail}
-							{record.currency}
+							{roundPrice(record.retail)}
+							{record.currency}/{record.unit}
 						</td>
 						<td>
-							{record.wholesale}
-							{record.currency}
+							{roundPrice(record.wholesale)}
+							{record.currency}/{record.unit}
 						</td>
 						<td>{record.source}</td>
 					</tr>
