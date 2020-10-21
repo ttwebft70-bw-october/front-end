@@ -1,31 +1,68 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Container from "react-bootstrap/Container";
-import DashboardForm from "./DashboardForm";
+
+import DashForm from "./DashForm";
+import DashTable from "./DashTable";
+
 import {
 	SAUTI_PRODUCT_CATEGORIES,
 	SAUTI_PRODUCT_SUBCATEGORIES,
 	SAUTI_PRODUCTS,
-} from "../modules/sauti-categories.js";
-import DashboardDisplay from "./DashboardDisplay";
+	SAUTI_COUNTRIES,
+	SAUTI_SOURCES,
+	SAUTI_MARKETS,
+	SAUTI_CURRENCIES,
+} from "../modules/sautidata.js";
 
 export default function Dashboard(props) {
-	const { sauti, setSauti } = props;
-	const [dash, setDash] = useState({
-		initalized: false,
-		data: false,
+	const [sauti, setSauti] = useState({
+		list: {
+			categories: SAUTI_PRODUCT_CATEGORIES,
+			subcategories: SAUTI_PRODUCT_SUBCATEGORIES,
+			products: SAUTI_PRODUCTS,
+			countries: SAUTI_COUNTRIES,
+			sources: SAUTI_SOURCES,
+			markets: SAUTI_MARKETS,
+			currencies: SAUTI_CURRENCIES,
+		},
+		data: [],
 	});
 
-	const sautiAxios = axios.create({
-		baseURL: "https://market-price-api.herokuapp.com/sauti/developer/",
+	const sautiAPI = axios.create({
+		baseURL: "https://market-price-api.herokuapp.com/sauti/developer/filter/?",
 		headers: { key: process.env.REACT_APP_SAUTI_API_KEY },
 	});
 
-	const formSubmit = (product) => {
-		sautiAxios
-			.get(`product/latestprice/?product=${product}`)
+	const submit = (filters) => {
+		console.log(filters);
+		let url = ``;
+		if (filters.product) {
+			url = url.concat(`p=${filters.product}&`);
+		} else if (filters.subcategory) {
+			url = url.concat(`pagg=${filters.subcategory}&`);
+		} else if (filters.category) {
+			url = url.concat(`pcat=${filters.category}&`);
+		}
+		if (filters.country) {
+			url = url.concat(`c=${filters.country}&`);
+		}
+		if (filters.market) {
+			url = url.concat(`m=${filters.market}&`);
+		}
+		if (filters.source) {
+			url = url.concat(`source=${filters.source}&`);
+		}
+		url = url.concat(`currency=${filters.currency}`);
+		console.log(url);
+		sautiAPI
+			.get(url)
 			.then((res) => {
-				setDash({ ...dash, data: res.data.records });
+				console.log(res.data);
+				setSauti({
+					...sauti,
+					data: res.data.records,
+				});
 			})
 			.catch((err) => {
 				console.error(err);
@@ -33,37 +70,30 @@ export default function Dashboard(props) {
 	};
 
 	useEffect(() => {
-		if (!dash.initialized) {
-			let parsed = { list: [] };
-
-			SAUTI_PRODUCT_CATEGORIES.forEach((cat) => {
-				parsed.list.push(cat);
-				parsed[cat] = { list: [] };
-			});
-			SAUTI_PRODUCT_SUBCATEGORIES.forEach((sub) => {
-				parsed[sub.category].list.push(sub.subcategory);
-				parsed[sub.category][sub.subcategory] = { list: [] };
-			});
-			SAUTI_PRODUCTS.forEach((prod) => {
-				parsed[prod.category][prod.subcategory].list.push(prod.product);
-			});
-
-			let init = { category: parsed };
-
-			setSauti(init);
-			setDash({ ...dash, initalized: true });
+		if (!sauti.initalized) {
+			sautiAPI
+				.get("currency=USD")
+				.then((res) => {
+					console.log(res.data);
+					setSauti({
+						...sauti,
+						data: res.data.records,
+					});
+				})
+				.catch((err) => {
+					console.error(err);
+				});
 		}
 	}, []);
 
+	useEffect(() => {
+		console.log(sauti);
+	}, [sauti]);
+
 	return (
 		<Container>
-			<h1>Dashboard</h1>
-			{dash.initalized ? (
-				<DashboardForm sauti={sauti} submit={formSubmit} />
-			) : (
-				""
-			)}
-			{dash.data ? <DashboardDisplay data={dash.data} /> : ""}
+			<DashForm list={sauti.list} submit={submit} />
+			<DashTable data={sauti.data} />
 		</Container>
 	);
 }

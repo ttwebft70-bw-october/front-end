@@ -10,9 +10,6 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 function App() {
-	//	I've placed the state here so that it isn't wiped out every time the user navigates away from the dashboard and then redownloaded from scratch every time they return
-	const [dashboardData, setDashboardData] = useState();
-
 	return (
 		<div className="App">
 			<Container>
@@ -26,7 +23,7 @@ function App() {
 			<Router>
 				<Switch>
 					<Route exact path="/">
-						<Dashboard sauti={dashboardData} setSauti={setDashboardData} />
+						<Dashboard />
 					</Route>
 					<Route path="/register">
 						<Register />
