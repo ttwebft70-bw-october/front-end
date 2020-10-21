@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { StateProvider } from "./components/StateProvider";
 import reducer, { initialState } from "./components/Reducer";
+import "bootswatch/dist/darkly/bootstrap.min.css";
 
 ReactDOM.render(
 	<React.StrictMode>
