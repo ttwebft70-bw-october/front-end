@@ -34,21 +34,21 @@ export default function Dashboard(props) {
 		headers: { key: process.env.REACT_APP_SAUTI_API_KEY },
 	});
 
-	useEffect(() => {
-		if (!sauti.initalized) {
-			sautiAPI
-				.get("currency=USD")
-				.then((res) => {
-					setSauti({
-						...sauti,
-						data: res.data.records,
-					});
-				})
-				.catch((err) => {
-					console.error(err);
+	const getInitialData = () => {
+		sautiAPI
+			.get("currency=USD")
+			.then((res) => {
+				setSauti({
+					...sauti,
+					data: res.data.records,
 				});
-		}
-	}, []);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	};
+
+	useEffect(getInitialData, []);
 
 	const submit = (filters) => {
 		let url = ``;
