@@ -1,6 +1,7 @@
 import React from "react";
 //	import { useParams } from "react-router-dom";
 import ProfileListings from "./ProfileListings";
+import Container from "react-bootstrap/Container";
 
 function Profile() {
 	//	For buidling the page out while we wait for the backend
@@ -31,14 +32,14 @@ function Profile() {
 	];
 
 	return (
-		<div className="profile">
+		<Container>
 			<h1>
 				{fakeProfile.first_name} {fakeProfile.last_name} from{" "}
 				{fakeProfile.business}
 			</h1>
 			<h2>For Sale</h2>
 			<ProfileListings listings={fakeListings} />
-		</div>
+		</Container>
 	);
 }
 

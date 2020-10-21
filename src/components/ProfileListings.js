@@ -1,15 +1,26 @@
 import React from "react";
-import ItemListing from "./ItemListing";
+import CardColumns from "react-bootstrap/CardColumns";
+import Card from "react-bootstrap/Card";
 
 function ProfileListings(props) {
 	const { listings } = props;
 
 	return (
-		<div className="profile-listings">
+		<CardColumns>
 			{listings.map((listing) => (
-				<ItemListing item={listing} />
+				<Card>
+					<Card.Body>
+						<Card.Title>{listing.item}</Card.Title>
+						<Card.Subtitle>{listing.price}</Card.Subtitle>
+						<Card.Text>{listing.location}</Card.Text>
+						<Card.Text>{listing.description}</Card.Text>
+					</Card.Body>
+					<Card.Footer>
+						<small>Quantity available: {listing.amount}</small>
+					</Card.Footer>
+				</Card>
 			))}
-		</div>
+		</CardColumns>
 	);
 }
 

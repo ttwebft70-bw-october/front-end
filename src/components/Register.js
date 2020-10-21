@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
-import axios from 'axios';
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 const registerSchema = yup.object().shape({
 	username: yup.string().required("Username required"),
@@ -14,7 +17,7 @@ const registerSchema = yup.object().shape({
 });
 
 function Register() {
-	const history = useHistory()
+	const history = useHistory();
 	const [form, setForm] = useState({
 		username: "",
 		business: "",
@@ -44,77 +47,77 @@ function Register() {
 		const creds = {
 			username: form.username,
 			password: form.password,
-		}
+		};
 		//	However you want to handle new user registration
-		axios 
-        .post('https://marketplace-backend-webft-70.herokuapp.com/api/auth/register',creds)
-        .then((res)=>{
-            window.localStorage.setItem('token',res.data.token)
-            console.log('success!')
-            history.push('/Dashboard')
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
+		axios
+			.post(
+				"https://marketplace-backend-webft-70.herokuapp.com/api/auth/register",
+				creds
+			)
+			.then((res) => {
+				window.localStorage.setItem("token", res.data.token);
+				console.log("success!");
+				history.push("/Dashboard");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	return (
-		<div className="register">
-			<div className="form-container">
-				<h1>Register</h1>
-				<form onSubmit={handleSubmit}>
-					<label>
-						<span>Username</span>
-						<input
-							name="username"
-							type="text"
-							onChange={handleChange}
-							value={form.username}
-						/>
-					</label>
-					<label>
-						<span>Business</span>
-						<input
-							name="business"
-							type="text"
-							onChange={handleChange}
-							value={form.business}
-						/>
-					</label>
-					<label>
-						<span>Email</span>
-						<input
-							name="email"
-							type="text"
-							onChange={handleChange}
-							value={form.email}
-						/>
-					</label>
-					<label>
-						<span>Password</span>
-						<input
-							name="password"
-							type="password"
-							onChange={handleChange}
-							value={form.password}
-						/>
-					</label>
-					<label className="register-tos-container">
-						I have read and agree to the Terms of Service
-						<input
-							name="tos"
-							type="checkbox"
-							onChange={handleChange}
-							value={form.tos}
-							checked={form.tos}
-						/>
-					</label>
-					<div className="button-container">
-						<button disabled={!buttonOn}>Submit</button>
-					</div>
-				</form>
-			</div>
-		</div>
+		<Container>
+			<h1>Register</h1>
+			<Form onSubmit={handleSubmit}>
+				<Form.Group controlId="registerUsername">
+					<Form.Label>Username</Form.Label>
+					<Form.Control
+						name="username"
+						type="text"
+						placeholder="Enter your username"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group controlId="registerBusiness">
+					<Form.Label>Business</Form.Label>
+					<Form.Control
+						name="business"
+						type="text"
+						placeholder="Enter business name"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group controlId="registerEmail">
+					<Form.Label>Email address</Form.Label>
+					<Form.Control
+						name="email"
+						type="email"
+						placeholder="Enter email address"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group controlId="registerPassword">
+					<Form.Label>Password</Form.Label>
+					<Form.Control
+						name="password"
+						type="password"
+						placeholder="Enter password"
+						onChange={handleChange}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group controlId="registerTos">
+					<Form.Check
+						name="tos"
+						type="checkbox"
+						onChange={handleChange}
+						checked={form.tos}
+						label="I have read and agree to the Terms of Service"
+					></Form.Check>
+				</Form.Group>
+				<Button variant="primary" type="submit" disabled={!buttonOn}>
+					Register
+				</Button>
+			</Form>
+		</Container>
 	);
 }
 
