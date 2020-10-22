@@ -17,3 +17,8 @@
 .dashboard-table-next-spinner {
 	margin-right: 0.8rem;
 }
+
+/*	Date picker text */
+.rdt {
+	color: #444;
+}

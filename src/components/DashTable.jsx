@@ -26,12 +26,11 @@ function DashTable(props) {
 	});
 
 	//	Get initial data
-	useEffect(() => {
+	const getInitialData = () => {
 		setSpinnerOn(true);
 		sautiAPI
 			.get(baseQuery)
 			.then((res) => {
-				console.log(res);
 				setTable({
 					...initTable,
 					data: [res.data.records],
@@ -42,15 +41,20 @@ function DashTable(props) {
 			.catch((err) => {
 				console.error(err);
 			});
-	}, [baseQuery]);
+	};
+	useEffect(getInitialData, [baseQuery]);
 
 	//	Get next page data in the background to reduce user wait times
-	useEffect(() => {
+	const getNextData = () => {
 		if (table.next !== "" && table.index + 1 === table.data.length) {
+			const sautiAPI = axios.create({
+				baseURL:
+					"https://market-price-api.herokuapp.com/sauti/developer/filter/",
+				headers: { key: process.env.REACT_APP_SAUTI_API_KEY },
+			});
 			sautiAPI
 				.get(`${baseQuery}&next=${table.next}`)
 				.then((res) => {
-					console.log(res);
 					setTable({
 						...table,
 						data: [...table.data, res.data.records],
@@ -63,7 +67,8 @@ function DashTable(props) {
 					console.error(err);
 				});
 		}
-	}, [table.next]);
+	};
+	useEffect(getNextData, [table.next]);
 
 	//	Helper function to round prices to two decimal points, unless the price is an integer, which is the case for some currencies supported by the Sauti API
 	const roundPrice = (price) => {
@@ -73,11 +78,6 @@ function DashTable(props) {
 			return price.toFixed(2);
 		}
 	};
-
-	//	Development
-	useEffect(() => {
-		console.log(table);
-	}, [table]);
 
 	const handleNext = () => {
 		let newTable = { ...table, index: table.index + 1 };
@@ -105,7 +105,7 @@ function DashTable(props) {
 			<Row className="dashboard-button-row">
 				<Col>
 					<Button disabled={!table.buttonPrevOn} onClick={handlePrev}>
-						Previous
+						Prev
 					</Button>
 				</Col>
 				<Col xs="auto">

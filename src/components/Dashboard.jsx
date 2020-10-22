@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import DashForm from "./DashForm";
 import DashTable from "./DashTable";
@@ -14,7 +14,7 @@ import {
 } from "../modules/sautidata.js";
 
 export default function Dashboard(props) {
-	const [sauti, setSauti] = useState({
+	const sauti = {
 		list: {
 			categories: SAUTI_PRODUCT_CATEGORIES,
 			subcategories: SAUTI_PRODUCT_SUBCATEGORIES,
@@ -24,8 +24,7 @@ export default function Dashboard(props) {
 			markets: SAUTI_MARKETS,
 			currencies: SAUTI_CURRENCIES,
 		},
-		data: [],
-	});
+	};
 	const [query, setQuery] = useState("?currency=USD");
 
 	const submit = (filters) => {
@@ -46,14 +45,8 @@ export default function Dashboard(props) {
 		if (filters.source) {
 			url = url.concat(`source=${filters.source}&`);
 		}
-
-		if (filters.start) {
-			url = url.concat(`startDate=${filters.start}&`);
-		}
-		if (filters.end) {
-			url = url.concat(`endDate=${filters.end}&`);
-		}
-
+		url = url.concat(`startDate=${filters.start}&`);
+		url = url.concat(`endDate=${filters.end}&`);
 		url = url.concat(`currency=${filters.currency}`);
 		setQuery(url);
 	};

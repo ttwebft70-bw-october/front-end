@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Datetime from "react-datetime";
+import moment from "moment";
 
 function DashForm(props) {
 	const { list, submit } = props;
@@ -16,16 +17,8 @@ function DashForm(props) {
 		market: "",
 		source: "",
 		currency: "USD",
-		startYear: "",
-		startMonth: "",
-		startDayOn: false,
-		startDayOptions: [],
-		startDay: "",
-		endYear: "",
-		endMonth: "",
-		endDayOn: false,
-		endDayOptions: [],
-		endDay: "",
+		startDate: moment("2015-01-01"),
+		endDate: moment("2019-12-31"),
 	};
 	const [form, setForm] = useState(initForm);
 
@@ -105,106 +98,9 @@ function DashForm(props) {
 			}
 			setForm(update);
 		}
-		function handleDatesAndSetForm() {
-			let update = { ...form, [name]: value };
-			if (
-				name === "startYear" ||
-				name === "startMonth" ||
-				name === "startDay"
-			) {
-				if (update.startMonth !== "") {
-					update.startDayOn = true;
-					update.startDayOptions = [];
-					let days = 0;
-					if (
-						update.startMonth === "01" ||
-						update.startMonth === "03" ||
-						update.startMonth === "05" ||
-						update.startMonth === "07" ||
-						update.startMonth === "08" ||
-						update.startMonth === "10" ||
-						update.startMonth === "12"
-					) {
-						days = 31;
-					} else if (
-						update.startMonth === "04" ||
-						update.startMonth === "06" ||
-						update.startMonth === "09" ||
-						update.startMonth === "11"
-					) {
-						days = 30;
-					} else if (update.startMonth === "02") {
-						if (Number.parseInt(update.startYear) % 4 === 0) {
-							days = 29;
-						} else {
-							days = 28;
-						}
-					}
-					for (let i = 1; i <= days; i++) {
-						if (i < 10) {
-							update.startDayOptions.push(`0${i}`);
-						} else {
-							update.startDayOptions.push(`${i}`);
-						}
-					}
-				} else {
-					update.startDayOn = false;
-				}
-			}
-			if (name === "endYear" || name === "endMonth" || name === "endDay") {
-				if (update.endMonth !== "") {
-					update.endDayOn = true;
-					update.endDayOptions = [];
-					let days = 0;
-					if (
-						update.endMonth === "01" ||
-						update.endMonth === "03" ||
-						update.endMonth === "05" ||
-						update.endMonth === "07" ||
-						update.endMonth === "08" ||
-						update.endMonth === "10" ||
-						update.endMonth === "12"
-					) {
-						days = 31;
-					} else if (
-						update.endMonth === "04" ||
-						update.endMonth === "06" ||
-						update.endMonth === "09" ||
-						update.endMonth === "11"
-					) {
-						days = 30;
-					} else if (update.endMonth === "02") {
-						if (Number.parseInt(update.endYear) % 4 === 0) {
-							days = 29;
-						} else {
-							days = 28;
-						}
-					}
-					for (let i = 1; i <= days; i++) {
-						if (i < 10) {
-							update.endDayOptions.push(`0${i}`);
-						} else {
-							update.endDayOptions.push(`${i}`);
-						}
-					}
-				} else {
-					update.endDayOn = false;
-				}
-			}
-			setForm(update);
-		}
 		const { name, value } = e.target;
 		if (name === "category" || name === "subcategory" || name === "product") {
 			handleCategoriesAndSetForm();
-		} else if (
-			name === "startYear" ||
-			name === "startMonth" ||
-			name === "startDay" ||
-			name === "endYear" ||
-			name === "endMonth" ||
-			name === "endDay"
-		) {
-			handleDatesAndSetForm();
 		} else {
 			setForm({
 				...form,
@@ -215,24 +111,6 @@ function DashForm(props) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		let startDate = false;
-		let endDate = false;
-		if (
-			form.startYear !== "" &&
-			form.startMonth !== "" &&
-			form.startDay !== ""
-		) {
-			startDate = `${form.startYear}-${form.startMonth}-${form.startDay}`;
-		}
-		if (form.endYear !== "" && form.endMonth !== "" && form.endDay !== "") {
-			endDate = `${form.endYear}-${form.endMonth}-${form.endDay}`;
-		}
-		if (startDate && !endDate) {
-			endDate = "2020-01-01";
-		}
-		if (!startDate && endDate) {
-			startDate = "2015-01-01";
-		}
 		submit({
 			category: form.category === "" ? false : form.category,
 			subcategory: form.subcategory === "" ? false : form.subcategory,
@@ -241,9 +119,36 @@ function DashForm(props) {
 			market: form.market === "" ? false : form.market,
 			source: form.source === "" ? false : form.source,
 			currency: form.currency === "" ? false : form.currency,
-			start: startDate,
-			end: endDate,
+			start: form.startDate.format("YYYY-MM-DD"),
+			end: form.endDate.format("YYYY-MM-DD"),
 		});
+	};
+
+	const handleStartDateChange = (moment) => {
+		setForm({
+			...form,
+			startDate: moment,
+		});
+	};
+	const handleEndDateChange = (moment) => {
+		setForm({
+			...form,
+			endDate: moment,
+		});
+	};
+	const validateStartDate = (current) => {
+		return (
+			current.isBefore(form.endDate.clone().add(1, "d")) &&
+			current.isBefore(initForm.endDate.clone().add(1, "d")) &&
+			current.isAfter(initForm.startDate.clone().subtract(1, "d"))
+		);
+	};
+	const validateEndDate = (current) => {
+		return (
+			current.isAfter(form.startDate.clone().subtract(1, "d")) &&
+			current.isBefore(initForm.endDate.clone().add(1, "d")) &&
+			current.isAfter(initForm.startDate.clone().subtract(1, "d"))
+		);
 	};
 
 	return (
@@ -367,116 +272,28 @@ function DashForm(props) {
 			</Form.Row>
 			<Form.Row>
 				<Col>
-					<Form.Label>Start date</Form.Label>
-					<Form.Row>
-						<Col>
-							<Form.Control
-								as="select"
-								name="startYear"
-								value={form.startYear}
-								onChange={handleChange}
-							>
-								<option value="">Year</option>
-								<option value="2019">2019</option>
-								<option value="2018">2018</option>
-								<option value="2017">2017</option>
-								<option value="2016">2016</option>
-								<option value="2015">2015</option>
-							</Form.Control>
-						</Col>
-						<Col>
-							<Form.Control
-								as="select"
-								name="startMonth"
-								value={form.startMonth}
-								onChange={handleChange}
-							>
-								<option value="">Month</option>
-								<option value="01">January</option>
-								<option value="02">February</option>
-								<option value="03">March</option>
-								<option value="04">April</option>
-								<option value="05">May</option>
-								<option value="06">June</option>
-								<option value="07">July</option>
-								<option value="08">August</option>
-								<option value="09">September</option>
-								<option value="10">October</option>
-								<option value="11">November</option>
-								<option value="12">December</option>
-							</Form.Control>
-						</Col>
-						<Col>
-							<Form.Control
-								as="select"
-								name="startDay"
-								value={form.startDay}
-								onChange={handleChange}
-								disabled={!form.startDayOn}
-							>
-								<option value="">Day</option>
-								{form.startDayOptions.map((day) => (
-									<option value={day}>{day}</option>
-								))}
-							</Form.Control>
-						</Col>
-					</Form.Row>
+					<Form.Group controlId="dashStartDate">
+						<Form.Label>Start date</Form.Label>
+						<Datetime
+							name="startDate"
+							value={form.startDate}
+							onChange={handleStartDateChange}
+							timeFormat={false}
+							isValidDate={validateStartDate}
+						/>
+					</Form.Group>
 				</Col>
 				<Col>
-					<Form.Label>End date</Form.Label>
-					<Form.Row>
-						<Col>
-							<Form.Control
-								as="select"
-								name="endYear"
-								value={form.endYear}
-								onChange={handleChange}
-							>
-								<option value="">Year</option>
-								<option value="2019">2019</option>
-								<option value="2018">2018</option>
-								<option value="2017">2017</option>
-								<option value="2016">2016</option>
-								<option value="2015">2015</option>
-							</Form.Control>
-						</Col>
-						<Col>
-							<Form.Control
-								as="select"
-								name="endMonth"
-								value={form.endMonth}
-								onChange={handleChange}
-							>
-								<option value="">Month</option>
-								<option value="01">January</option>
-								<option value="02">February</option>
-								<option value="03">March</option>
-								<option value="04">April</option>
-								<option value="05">May</option>
-								<option value="06">June</option>
-								<option value="07">July</option>
-								<option value="08">August</option>
-								<option value="09">September</option>
-								<option value="10">October</option>
-								<option value="11">November</option>
-								<option value="12">December</option>
-							</Form.Control>
-						</Col>
-						<Col>
-							<Form.Control
-								as="select"
-								name="endDay"
-								value={form.endDay}
-								onChange={handleChange}
-								disabled={!form.endDayOn}
-							>
-								<option value="">Day</option>
-								{form.endDayOptions.map((day) => (
-									<option value={day}>{day}</option>
-								))}
-							</Form.Control>
-						</Col>
-					</Form.Row>
+					<Form.Group controlId="dashEndDate">
+						<Form.Label>End date</Form.Label>
+						<Datetime
+							name="endDate"
+							value={form.endDate}
+							onChange={handleEndDateChange}
+							timeFormat={false}
+							isValidDate={validateEndDate}
+						/>
+					</Form.Group>
 				</Col>
 			</Form.Row>
 			<Form.Row className="justify-content-center dashboard-form-button-row">
