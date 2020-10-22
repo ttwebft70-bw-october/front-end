@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
+const shortid = require("shortid");
 
 function DashTable(props) {
 	const { countries, baseQuery } = props;
@@ -125,19 +126,21 @@ function DashTable(props) {
 				</Col>
 			</Row>
 			<Row>
-				<Table striped border hover>
+				<Table striped bordered hover variant="dark">
 					<thead>
-						<th>Date</th>
-						<th>Country</th>
-						<th>Market</th>
-						<th>Product</th>
-						<th>Retail</th>
-						<th>Wholesale</th>
-						<th>Source</th>
+						<tr>
+							<th>Date</th>
+							<th>Country</th>
+							<th>Market</th>
+							<th>Product</th>
+							<th>Retail</th>
+							<th>Wholesale</th>
+							<th>Source</th>
+						</tr>
 					</thead>
 					<tbody>
 						{table.data[table.index].map((record) => (
-							<tr>
+							<tr key={shortid.generate()}>
 								<td>{record.date.slice(0, 10)}</td>
 								<td>{countries.find((c) => c.code === record.country).name}</td>
 								<td>{record.market}</td>

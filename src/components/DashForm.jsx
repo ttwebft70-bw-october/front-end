@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Datetime from "react-datetime";
 import moment from "moment";
+const shortid = require("shortid");
 
 function DashForm(props) {
 	const { list, submit } = props;
@@ -165,7 +166,7 @@ function DashForm(props) {
 						>
 							<option value=""></option>
 							{list.categories.map((cat) => (
-								<option value={cat}>{cat}</option>
+								<option value={cat} key={shortid.generate()}>{cat}</option>
 							))}
 						</Form.Control>
 					</Form.Group>
@@ -181,7 +182,7 @@ function DashForm(props) {
 						>
 							<option value=""></option>{" "}
 							{form.subList.map((sub) => (
-								<option value={sub}>{sub}</option>
+								<option value={sub} key={shortid.generate()}>{sub}</option>
 							))}
 						</Form.Control>
 					</Form.Group>
@@ -197,7 +198,7 @@ function DashForm(props) {
 						>
 							<option value=""></option>{" "}
 							{form.prodList.map((prod) => (
-								<option value={prod}>{prod}</option>
+								<option value={prod} key={shortid.generate()}>{prod}</option>
 							))}
 						</Form.Control>
 					</Form.Group>
@@ -215,7 +216,7 @@ function DashForm(props) {
 						>
 							<option value=""></option>{" "}
 							{list.countries.map((country) => (
-								<option value={country.code}>{country.name}</option>
+								<option value={country.code} key={shortid.generate()}>{country.name}</option>
 							))}
 						</Form.Control>
 					</Form.Group>
@@ -231,7 +232,7 @@ function DashForm(props) {
 						>
 							<option value=""></option>{" "}
 							{list.markets.map((market) => (
-								<option value={market}>{market}</option>
+								<option value={market} key={shortid.generate()}>{market}</option>
 							))}
 						</Form.Control>
 					</Form.Group>
@@ -249,7 +250,7 @@ function DashForm(props) {
 						>
 							<option value=""></option>{" "}
 							{list.sources.map((source) => (
-								<option value={source}>{source}</option>
+								<option value={source} key={shortid.generate()}>{source}</option>
 							))}
 						</Form.Control>
 					</Form.Group>
@@ -264,7 +265,7 @@ function DashForm(props) {
 							onChange={handleChange}
 						>
 							{list.currencies.map((curr) => (
-								<option value={curr}>{curr}</option>
+								<option value={curr} key={shortid.generate()}>{curr}</option>
 							))}
 						</Form.Control>
 					</Form.Group>
