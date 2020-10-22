@@ -46,6 +46,14 @@ export default function Dashboard(props) {
 		if (filters.source) {
 			url = url.concat(`source=${filters.source}&`);
 		}
+
+		if (filters.start) {
+			url = url.concat(`startDate=${filters.start}&`);
+		}
+		if (filters.end) {
+			url = url.concat(`endDate=${filters.end}&`);
+		}
+
 		url = url.concat(`currency=${filters.currency}`);
 		setQuery(url);
 	};

@@ -31,6 +31,7 @@ function DashTable(props) {
 		sautiAPI
 			.get(baseQuery)
 			.then((res) => {
+				console.log(res);
 				setTable({
 					...initTable,
 					data: [res.data.records],
@@ -49,6 +50,7 @@ function DashTable(props) {
 			sautiAPI
 				.get(`${baseQuery}&next=${table.next}`)
 				.then((res) => {
+					console.log(res);
 					setTable({
 						...table,
 						data: [...table.data, res.data.records],
