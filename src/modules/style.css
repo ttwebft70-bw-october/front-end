@@ -1,0 +1,24 @@
+.dashboard-container {
+	margin-top: 2rem;
+}
+
+.dashboard-button-row {
+	margin: 1rem;
+}
+
+.dashboard-form-button-row {
+	margin: 2rem 0;
+}
+
+.dashboard-table-main-spinner {
+	margin: 3rem 0;
+}
+
+.dashboard-table-next-spinner {
+	margin-right: 0.8rem;
+}
+
+/*	Date picker text */
+.rdt {
+	color: #444;
+}

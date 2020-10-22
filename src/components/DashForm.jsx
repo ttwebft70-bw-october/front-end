@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Datetime from "react-datetime";
+import moment from "moment";
+const shortid = require("shortid");
 
 function DashForm(props) {
 	const { list, submit } = props;
@@ -14,6 +18,8 @@ function DashForm(props) {
 		market: "",
 		source: "",
 		currency: "USD",
+		startDate: moment("2015-01-01"),
+		endDate: moment("2019-12-31"),
 	};
 	const [form, setForm] = useState(initForm);
 
@@ -114,109 +120,186 @@ function DashForm(props) {
 			market: form.market === "" ? false : form.market,
 			source: form.source === "" ? false : form.source,
 			currency: form.currency === "" ? false : form.currency,
+			start: form.startDate.format("YYYY-MM-DD"),
+			end: form.endDate.format("YYYY-MM-DD"),
 		});
+	};
+
+	const handleStartDateChange = (moment) => {
+		setForm({
+			...form,
+			startDate: moment,
+		});
+	};
+	const handleEndDateChange = (moment) => {
+		setForm({
+			...form,
+			endDate: moment,
+		});
+	};
+	const validateStartDate = (current) => {
+		return (
+			current.isBefore(form.endDate.clone().add(1, "d")) &&
+			current.isBefore(initForm.endDate.clone().add(1, "d")) &&
+			current.isAfter(initForm.startDate.clone().subtract(1, "d"))
+		);
+	};
+	const validateEndDate = (current) => {
+		return (
+			current.isAfter(form.startDate.clone().subtract(1, "d")) &&
+			current.isBefore(initForm.endDate.clone().add(1, "d")) &&
+			current.isAfter(initForm.startDate.clone().subtract(1, "d"))
+		);
 	};
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<Form.Group controlId="dashProductCategory">
-				<Form.Label>Category</Form.Label>
-				<Form.Control
-					as="select"
-					name="category"
-					value={form.category}
-					onChange={handleChange}
-				>
-					<option value=""></option>
-					{list.categories.map((cat) => (
-						<option value={cat}>{cat}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Form.Group controlId="dashProductSubcategory">
-				<Form.Label>Subcategory</Form.Label>
-				<Form.Control
-					as="select"
-					name="subcategory"
-					value={form.subcategory}
-					onChange={handleChange}
-				>
-					<option value=""></option>{" "}
-					{form.subList.map((sub) => (
-						<option value={sub}>{sub}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Form.Group controlId="dashProduct">
-				<Form.Label>Product</Form.Label>
-				<Form.Control
-					as="select"
-					name="product"
-					value={form.product}
-					onChange={handleChange}
-				>
-					<option value=""></option>{" "}
-					{form.prodList.map((prod) => (
-						<option value={prod}>{prod}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Form.Group controlId="dashCountry">
-				<Form.Label>Country</Form.Label>
-				<Form.Control
-					as="select"
-					name="country"
-					value={form.country}
-					onChange={handleChange}
-				>
-					<option value=""></option>{" "}
-					{list.countries.map((country) => (
-						<option value={country.code}>{country.name}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Form.Group controlId="dashMarket">
-				<Form.Label>Market</Form.Label>
-				<Form.Control
-					as="select"
-					name="market"
-					value={form.market}
-					onChange={handleChange}
-				>
-					<option value=""></option>{" "}
-					{list.markets.map((market) => (
-						<option value={market}>{market}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Form.Group controlId="dashSource">
-				<Form.Label>Data source</Form.Label>
-				<Form.Control
-					as="select"
-					name="source"
-					value={form.source}
-					onChange={handleChange}
-				>
-					<option value=""></option>{" "}
-					{list.sources.map((source) => (
-						<option value={source}>{source}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Form.Group controlId="dashCurrency">
-				<Form.Label>Currency conversion</Form.Label>
-				<Form.Control
-					as="select"
-					name="currency"
-					value={form.currency}
-					onChange={handleChange}
-				>
-					{list.currencies.map((curr) => (
-						<option value={curr}>{curr}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Button type="submit">Filter</Button>
+			<Form.Row>
+				<Col>
+					<Form.Group controlId="dashProductCategory">
+						<Form.Label>Category</Form.Label>
+						<Form.Control
+							as="select"
+							name="category"
+							value={form.category}
+							onChange={handleChange}
+						>
+							<option value=""></option>
+							{list.categories.map((cat) => (
+								<option value={cat} key={shortid.generate()}>{cat}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+				<Col>
+					<Form.Group controlId="dashProductSubcategory">
+						<Form.Label>Subcategory</Form.Label>
+						<Form.Control
+							as="select"
+							name="subcategory"
+							value={form.subcategory}
+							onChange={handleChange}
+						>
+							<option value=""></option>{" "}
+							{form.subList.map((sub) => (
+								<option value={sub} key={shortid.generate()}>{sub}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+				<Col>
+					<Form.Group controlId="dashProduct">
+						<Form.Label>Product</Form.Label>
+						<Form.Control
+							as="select"
+							name="product"
+							value={form.product}
+							onChange={handleChange}
+						>
+							<option value=""></option>{" "}
+							{form.prodList.map((prod) => (
+								<option value={prod} key={shortid.generate()}>{prod}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+			</Form.Row>
+			<Form.Row>
+				<Col>
+					<Form.Group controlId="dashCountry">
+						<Form.Label>Country</Form.Label>
+						<Form.Control
+							as="select"
+							name="country"
+							value={form.country}
+							onChange={handleChange}
+						>
+							<option value=""></option>{" "}
+							{list.countries.map((country) => (
+								<option value={country.code} key={shortid.generate()}>{country.name}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+				<Col>
+					<Form.Group controlId="dashMarket">
+						<Form.Label>Market</Form.Label>
+						<Form.Control
+							as="select"
+							name="market"
+							value={form.market}
+							onChange={handleChange}
+						>
+							<option value=""></option>{" "}
+							{list.markets.map((market) => (
+								<option value={market} key={shortid.generate()}>{market}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+			</Form.Row>
+			<Form.Row>
+				<Col>
+					<Form.Group controlId="dashSource">
+						<Form.Label>Data source</Form.Label>
+						<Form.Control
+							as="select"
+							name="source"
+							value={form.source}
+							onChange={handleChange}
+						>
+							<option value=""></option>{" "}
+							{list.sources.map((source) => (
+								<option value={source} key={shortid.generate()}>{source}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+				<Col>
+					<Form.Group controlId="dashCurrency">
+						<Form.Label>Currency conversion</Form.Label>
+						<Form.Control
+							as="select"
+							name="currency"
+							value={form.currency}
+							onChange={handleChange}
+						>
+							{list.currencies.map((curr) => (
+								<option value={curr} key={shortid.generate()}>{curr}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+			</Form.Row>
+			<Form.Row>
+				<Col>
+					<Form.Group controlId="dashStartDate">
+						<Form.Label>Start date</Form.Label>
+						<Datetime
+							name="startDate"
+							value={form.startDate}
+							onChange={handleStartDateChange}
+							timeFormat={false}
+							isValidDate={validateStartDate}
+						/>
+					</Form.Group>
+				</Col>
+				<Col>
+					<Form.Group controlId="dashEndDate">
+						<Form.Label>End date</Form.Label>
+						<Datetime
+							name="endDate"
+							value={form.endDate}
+							onChange={handleEndDateChange}
+							timeFormat={false}
+							isValidDate={validateEndDate}
+						/>
+					</Form.Group>
+				</Col>
+			</Form.Row>
+			<Form.Row className="justify-content-center dashboard-form-button-row">
+				<Button type="submit">Filter Data</Button>
+			</Form.Row>
 		</Form>
 	);
 }

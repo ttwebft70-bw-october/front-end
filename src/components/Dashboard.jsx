@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
-
 import DashForm from "./DashForm";
 import DashTable from "./DashTable";
 
@@ -16,7 +14,7 @@ import {
 } from "../modules/sautidata.js";
 
 export default function Dashboard(props) {
-	const [sauti, setSauti] = useState({
+	const sauti = {
 		list: {
 			categories: SAUTI_PRODUCT_CATEGORIES,
 			subcategories: SAUTI_PRODUCT_SUBCATEGORIES,
@@ -26,29 +24,8 @@ export default function Dashboard(props) {
 			markets: SAUTI_MARKETS,
 			currencies: SAUTI_CURRENCIES,
 		},
-		data: [],
-	});
-
-	const sautiAPI = axios.create({
-		baseURL: "https://market-price-api.herokuapp.com/sauti/developer/filter/",
-		headers: { key: process.env.REACT_APP_SAUTI_API_KEY },
-	});
-
-	const getInitialData = () => {
-		sautiAPI
-			.get("?currency=USD")
-			.then((res) => {
-				setSauti({
-					...sauti,
-					data: res.data.records,
-				});
-			})
-			.catch((err) => {
-				console.error(err);
-			});
 	};
-
-	useEffect(getInitialData, []);
+	const [query, setQuery] = useState("?currency=USD");
 
 	const submit = (filters) => {
 		let url = `?`;
@@ -68,24 +45,16 @@ export default function Dashboard(props) {
 		if (filters.source) {
 			url = url.concat(`source=${filters.source}&`);
 		}
+		url = url.concat(`startDate=${filters.start}&`);
+		url = url.concat(`endDate=${filters.end}&`);
 		url = url.concat(`currency=${filters.currency}`);
-		sautiAPI
-			.get(url)
-			.then((res) => {
-				setSauti({
-					...sauti,
-					data: res.data.records,
-				});
-			})
-			.catch((err) => {
-				console.error(err);
-			});
+		setQuery(url);
 	};
 
 	return (
-		<Container>
+		<Container className="dashboard-container">
 			<DashForm list={sauti.list} submit={submit} />
-			<DashTable data={sauti.data} countries={sauti.list.countries} />
+			<DashTable countries={sauti.list.countries} baseQuery={query} />
 		</Container>
 	);
 }
