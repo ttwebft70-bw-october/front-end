@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 function DashForm(props) {
@@ -119,104 +120,128 @@ function DashForm(props) {
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<Form.Group controlId="dashProductCategory">
-				<Form.Label>Category</Form.Label>
-				<Form.Control
-					as="select"
-					name="category"
-					value={form.category}
-					onChange={handleChange}
-				>
-					<option value=""></option>
-					{list.categories.map((cat) => (
-						<option value={cat}>{cat}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Form.Group controlId="dashProductSubcategory">
-				<Form.Label>Subcategory</Form.Label>
-				<Form.Control
-					as="select"
-					name="subcategory"
-					value={form.subcategory}
-					onChange={handleChange}
-				>
-					<option value=""></option>{" "}
-					{form.subList.map((sub) => (
-						<option value={sub}>{sub}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Form.Group controlId="dashProduct">
-				<Form.Label>Product</Form.Label>
-				<Form.Control
-					as="select"
-					name="product"
-					value={form.product}
-					onChange={handleChange}
-				>
-					<option value=""></option>{" "}
-					{form.prodList.map((prod) => (
-						<option value={prod}>{prod}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Form.Group controlId="dashCountry">
-				<Form.Label>Country</Form.Label>
-				<Form.Control
-					as="select"
-					name="country"
-					value={form.country}
-					onChange={handleChange}
-				>
-					<option value=""></option>{" "}
-					{list.countries.map((country) => (
-						<option value={country.code}>{country.name}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Form.Group controlId="dashMarket">
-				<Form.Label>Market</Form.Label>
-				<Form.Control
-					as="select"
-					name="market"
-					value={form.market}
-					onChange={handleChange}
-				>
-					<option value=""></option>{" "}
-					{list.markets.map((market) => (
-						<option value={market}>{market}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Form.Group controlId="dashSource">
-				<Form.Label>Data source</Form.Label>
-				<Form.Control
-					as="select"
-					name="source"
-					value={form.source}
-					onChange={handleChange}
-				>
-					<option value=""></option>{" "}
-					{list.sources.map((source) => (
-						<option value={source}>{source}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Form.Group controlId="dashCurrency">
-				<Form.Label>Currency conversion</Form.Label>
-				<Form.Control
-					as="select"
-					name="currency"
-					value={form.currency}
-					onChange={handleChange}
-				>
-					{list.currencies.map((curr) => (
-						<option value={curr}>{curr}</option>
-					))}
-				</Form.Control>
-			</Form.Group>
-			<Button type="submit">Filter</Button>
+			<Form.Row>
+				<Col>
+					<Form.Group controlId="dashProductCategory">
+						<Form.Label>Category</Form.Label>
+						<Form.Control
+							as="select"
+							name="category"
+							value={form.category}
+							onChange={handleChange}
+						>
+							<option value=""></option>
+							{list.categories.map((cat) => (
+								<option value={cat}>{cat}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+				<Col>
+					<Form.Group controlId="dashProductSubcategory">
+						<Form.Label>Subcategory</Form.Label>
+						<Form.Control
+							as="select"
+							name="subcategory"
+							value={form.subcategory}
+							onChange={handleChange}
+						>
+							<option value=""></option>{" "}
+							{form.subList.map((sub) => (
+								<option value={sub}>{sub}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+				<Col>
+					<Form.Group controlId="dashProduct">
+						<Form.Label>Product</Form.Label>
+						<Form.Control
+							as="select"
+							name="product"
+							value={form.product}
+							onChange={handleChange}
+						>
+							<option value=""></option>{" "}
+							{form.prodList.map((prod) => (
+								<option value={prod}>{prod}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+			</Form.Row>
+			<Form.Row>
+				<Col>
+					<Form.Group controlId="dashCountry">
+						<Form.Label>Country</Form.Label>
+						<Form.Control
+							as="select"
+							name="country"
+							value={form.country}
+							onChange={handleChange}
+						>
+							<option value=""></option>{" "}
+							{list.countries.map((country) => (
+								<option value={country.code}>{country.name}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+				<Col>
+					<Form.Group controlId="dashMarket">
+						<Form.Label>Market</Form.Label>
+						<Form.Control
+							as="select"
+							name="market"
+							value={form.market}
+							onChange={handleChange}
+						>
+							<option value=""></option>{" "}
+							{list.markets.map((market) => (
+								<option value={market}>{market}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+			</Form.Row>
+			<Form.Row>
+				<Col>
+					<Form.Group controlId="dashSource">
+						<Form.Label>Data source</Form.Label>
+						<Form.Control
+							as="select"
+							name="source"
+							value={form.source}
+							onChange={handleChange}
+						>
+							<option value=""></option>{" "}
+							{list.sources.map((source) => (
+								<option value={source}>{source}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+				<Col>
+					<Form.Group controlId="dashCurrency">
+						<Form.Label>Currency conversion</Form.Label>
+						<Form.Control
+							as="select"
+							name="currency"
+							value={form.currency}
+							onChange={handleChange}
+						>
+							{list.currencies.map((curr) => (
+								<option value={curr}>{curr}</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+			</Form.Row>
+			<Form.Row className="justify-content-center">
+				<Button type="submit" className="dashboard-form-button">
+					Filter Data
+				</Button>
+			</Form.Row>
 		</Form>
 	);
 }

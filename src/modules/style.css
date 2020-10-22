@@ -1,0 +1,19 @@
+.dashboard-container {
+	margin-top: 2rem;
+}
+
+.dashboard-button-row {
+	margin: 1rem;
+}
+
+.dashboard-form-button {
+	margin: 0.5rem 0;
+}
+
+.dashboard-table-main-spinner {
+	margin: 3rem 0;
+}
+
+.dashboard-table-next-spinner {
+	margin-right: 0.8rem;
+}

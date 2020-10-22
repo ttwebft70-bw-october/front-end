@@ -51,7 +51,7 @@ export default function Dashboard(props) {
 	};
 
 	return (
-		<Container>
+		<Container className="dashboard-container">
 			<DashForm list={sauti.list} submit={submit} />
 			<DashTable countries={sauti.list.countries} baseQuery={query} />
 		</Container>
