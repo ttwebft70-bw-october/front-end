@@ -30,13 +30,13 @@ export default function Dashboard(props) {
 	});
 
 	const sautiAPI = axios.create({
-		baseURL: "https://market-price-api.herokuapp.com/sauti/developer/filter/?",
+		baseURL: "https://market-price-api.herokuapp.com/sauti/developer/filter/",
 		headers: { key: process.env.REACT_APP_SAUTI_API_KEY },
 	});
 
 	const getInitialData = () => {
 		sautiAPI
-			.get("currency=USD")
+			.get("?currency=USD")
 			.then((res) => {
 				setSauti({
 					...sauti,
@@ -51,7 +51,7 @@ export default function Dashboard(props) {
 	useEffect(getInitialData, []);
 
 	const submit = (filters) => {
-		let url = ``;
+		let url = `?`;
 		if (filters.product) {
 			url = url.concat(`p=${filters.product}&`);
 		} else if (filters.subcategory) {
