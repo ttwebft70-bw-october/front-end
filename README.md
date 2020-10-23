@@ -1,16 +1,16 @@
 # African Marketplace Frontend
 
+## Deployed App
+
+https://africanmarketplace-tt70.netlify.app/
+
 ## .env 
 
 You must specify the "REACT_APP_SAUTI_API_KEY" environment variable with a valid [Sauti API](https://price-api.live/docs) key for the Dashboard component to properly function on your local machine. This is automatically specified for deployed builds on Netlify. Read more [here](https://medium.com/better-programming/how-to-hide-your-api-keys-c2b952bc07e6)
 
-## Deployed App
-
-https://dreamy-curie-44f0ec.netlify.app/
+## Available Scripts
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
 
 In the project directory, you can run:
 

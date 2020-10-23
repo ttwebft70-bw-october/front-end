@@ -3,14 +3,17 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { StateProvider } from "./components/StateProvider";
+import { BrowserRouter as Router } from "react-router-dom";
 import "bootswatch/dist/darkly/bootstrap.min.css";
 import "react-datetime/css/react-datetime.css";
 import "./modules/style.css";
 
 ReactDOM.render(
 	<React.StrictMode>
-		<StateProvider >
-			<App />
+		<StateProvider>
+			<Router>
+				<App />
+			</Router>
 		</StateProvider>
 	</React.StrictMode>,
 	document.getElementById("root")
