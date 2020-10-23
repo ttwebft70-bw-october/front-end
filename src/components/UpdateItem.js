@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import * as yup from "yup";
+import React/* , { useState, useEffect } */ from 'react'
+// import * as yup from "yup";
 import { axiosWithAuth } from '../modules/axiosWithAuth';
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+// import Container from "react-bootstrap/Container";
+// import Form from "react-bootstrap/Form";
+// import Button from "react-bootstrap/Button";
 
 export default function UpdateItem() {
-    const [form, setForm] = useState({
+/*     const [form, setForm] = useState({
         item: "",
         description: "",
         price: "",
         quantity: "",
         location: "",
     });
-    axiosWithAuth()
+ */    axiosWithAuth()
         .put('https://marketplace-backend-webft-70.herokuapp.com/api/profile/:id/listings/:listingid',)
         .then((res) => {
             console.log(res)
