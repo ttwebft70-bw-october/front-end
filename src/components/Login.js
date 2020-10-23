@@ -10,7 +10,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 const loginSchema = yup.object().shape({
-	email: yup.string().email("Invalid email address").required("Email required"),
+	// email: yup.string().email("Invalid email address").required("Email required"),
 	password: yup
 		.string()
 		.min(6, `Password must be 6 characters or longer`)
@@ -19,7 +19,7 @@ const loginSchema = yup.object().shape({
 
 function Login() {
 	const [form, setForm] = useState({
-		email: "",
+		username: "",
 		password: "",
 	});
 	const [buttonOn, setButtonOn] = useState(false);
@@ -61,11 +61,11 @@ function Login() {
 				<Col>
 					<Form onSubmit={handleSubmit}>
 						<Form.Group controlId="loginEmail">
-							<Form.Label>Email address</Form.Label>
+							<Form.Label>Username</Form.Label>
 							<Form.Control
-								name="email"
-								type="email"
-								placeholder="Enter email address"
+								name="username"
+								type="text"
+								placeholder="Enter Username"
 								onChange={handleChange}
 							></Form.Control>
 						</Form.Group>
