@@ -47,6 +47,8 @@ function Register() {
 		const creds = {
 			username: form.username,
 			password: form.password,
+			business: form.business,
+			email: form.email,
 		};
 		//	However you want to handle new user registration
 		axios
@@ -55,9 +57,13 @@ function Register() {
 				creds
 			)
 			.then((res) => {
+				const json = res.data.data.profile;
+				const profile = JSON.stringify(json)
 				window.localStorage.setItem("token", res.data.token);
+				window.localStorage.setItem("profile",profile);
 				console.log("success!");
-				history.push("/Dashboard");
+				console.log(res)
+				history.push("/listings");
 			})
 			.catch((err) => {
 				console.log(err);

@@ -3,14 +3,13 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { StateProvider } from "./components/StateProvider";
-import reducer, { initialState } from "./components/Reducer";
 import "bootswatch/dist/darkly/bootstrap.min.css";
 import "react-datetime/css/react-datetime.css";
 import "./modules/style.css";
 
 ReactDOM.render(
 	<React.StrictMode>
-		<StateProvider initialState={initialState} reducer={reducer}>
+		<StateProvider >
 			<App />
 		</StateProvider>
 	</React.StrictMode>,
